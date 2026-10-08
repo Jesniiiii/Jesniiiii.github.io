@@ -1,0 +1,10 @@
+{
+  "description": "Designed for grid operators and technicians, this web application enhances operational efficiency and professionalism in managing India's power grid.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
