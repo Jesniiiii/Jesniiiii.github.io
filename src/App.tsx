@@ -9,14 +9,12 @@ import {
   ChevronRight,
   Code2,
   Database,
-  GraduationCap,
   Heart,
   Mail,
   MapPin,
   Menu,
   Network,
   Phone,
-  Play,
   PieChart,
   ServerCog,
   Sparkles,
@@ -37,7 +35,6 @@ type Project = {
   tags: string[]
   highlights: string[]
   link?: string
-  video?: string
 }
 
 const projects: Project[] = [
@@ -73,7 +70,6 @@ const projects: Project[] = [
       'Designed the PostGIS schema and containerized setup',
       'Served flood extents with Shapefile and KML export',
     ],
-    video: 'https://www.youtube.com/embed/lYMawp2qSOE',
   },
   {
     number: '03',
@@ -90,7 +86,6 @@ const projects: Project[] = [
       'Engineered compensation, dispute and R&R features',
       'Prepared explainable model outputs using SHAP',
     ],
-    video: 'https://www.youtube.com/embed/l_heo9XXDpc',
   },
   {
     number: '04',
@@ -365,8 +360,6 @@ function About() {
 }
 
 function Projects() {
-  const [activeVideo, setActiveVideo] = useState<{ title: string; video: string } | null>(null)
-
   const iconButtonClass =
     'grid size-11 shrink-0 place-items-center rounded-full border border-ink/10 bg-white/55 text-ink transition-transform group-hover:-rotate-6 group-hover:scale-105'
 
@@ -394,7 +387,7 @@ function Projects() {
                     {project.title}
                   </h3>
                 </div>
-                {project.link ? (
+                {project.link && (
                   <a
                     href={project.link}
                     target="_blank"
@@ -404,15 +397,6 @@ function Projects() {
                   >
                     <ArrowUpRight size={19} />
                   </a>
-                ) : (
-                  <button
-                    type="button"
-                    onClick={() => setActiveVideo({ title: project.title, video: project.video! })}
-                    aria-label={`Watch ${project.title} demo`}
-                    className={iconButtonClass}
-                  >
-                    <Play size={17} />
-                  </button>
                 )}
               </div>
               <p className="mt-5 max-w-xl text-sm leading-7 text-ink/62">{project.description}</p>
@@ -444,34 +428,6 @@ function Projects() {
         </div>
       </div>
 
-      {activeVideo && (
-        <div
-          className="fixed inset-0 z-[60] grid place-items-center bg-ink/80 p-5"
-          onClick={() => setActiveVideo(null)}
-        >
-          <div className="w-full max-w-4xl" onClick={(e) => e.stopPropagation()}>
-            <div className="mb-3 flex items-center justify-between text-white">
-              <p className="font-bold">{activeVideo.title} · demo</p>
-              <button type="button" onClick={() => setActiveVideo(null)} aria-label="Close video">
-                <X size={22} />
-              </button>
-            </div>
-            <div className="aspect-video overflow-hidden rounded-2xl bg-black">
-              {activeVideo.video.endsWith('.mp4') ? (
-                <video src={activeVideo.video} controls autoPlay className="size-full" />
-              ) : (
-                <iframe
-                  src={activeVideo.video}
-                  title={`${activeVideo.title} demo`}
-                  allow="autoplay; encrypted-media; fullscreen"
-                  allowFullScreen
-                  className="size-full"
-                />
-              )}
-            </div>
-          </div>
-        </div>
-      )}
     </section>
   )
 }
@@ -547,17 +503,7 @@ function Skills() {
 function Education() {
   return (
     <section className="border-y border-ink/10 bg-white/55">
-      <div className="mx-auto grid max-w-7xl gap-5 px-5 py-20 sm:px-8 lg:grid-cols-2">
-        <article className="rounded-[2rem] border border-ink/10 bg-cream p-7 sm:p-9">
-          <span className="grid size-12 place-items-center rounded-2xl bg-coral/35 text-ink"><GraduationCap size={22} /></span>
-          <p className="mt-7 text-xs font-bold uppercase tracking-[0.16em] text-plum">Education · 2023 — 2027</p>
-          <h2 className="mt-3 font-display text-2xl font-extrabold tracking-tight text-ink">B.Tech, Electronics & Computer Science</h2>
-          <p className="mt-2 text-sm text-ink/55">Pillai College of Engineering, Maharashtra</p>
-          <div className="mt-7 flex items-center justify-between rounded-2xl border border-ink/10 bg-white/65 p-4">
-            <span className="text-xs font-semibold text-ink/50">Average SGPA · Sem 1–6</span>
-            <span className="font-display text-xl font-extrabold text-plum">7.45</span>
-          </div>
-        </article>
+      <div className="mx-auto grid max-w-7xl gap-5 px-5 py-20 sm:px-8">
         <article className="rounded-[2rem] border border-ink/10 bg-cream p-7 sm:p-9">
           <span className="grid size-12 place-items-center rounded-2xl bg-mint/35 text-ink"><BookOpen size={21} /></span>
           <p className="mt-7 text-xs font-bold uppercase tracking-[0.16em] text-plum">Certifications & learning</p>
